@@ -1,0 +1,23 @@
+[
+  {
+    "id": "TASK-001",
+    "title": "Book college auditorium",
+    "description": "Confirm venue availability",
+    "depends_on": [],
+    "status": "pending"
+  },
+  {
+    "id": "TASK-002",
+    "title": "Confirm workshop venue",
+    "description": "Check auditorium availability",
+    "depends_on": [],
+    "status": "pending"
+  },
+  {
+    "id": "TASK-003",
+    "title": "Confirm workshop venue",
+    "description": "Check auditorium availability",
+    "depends_on": [],
+    "status": "pending"
+  }
+]
