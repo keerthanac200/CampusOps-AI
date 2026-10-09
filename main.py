@@ -1,8 +1,14 @@
 from uuid import uuid4
-
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
-
+from pathlib import Path
+app.mount(
+    "/static",
+    StaticFiles(directory=BASE_DIR / "static"),
+    name="static"
+)
+BASE_DIR = Path(__file__).resolve().parent
 from agent import create_plan
 from executor import execute_plan
 from venue_routes import router as venue_router
@@ -13,6 +19,13 @@ app = FastAPI(
     version="1.0.0",
 )
 app.include_router(venue_router)
+BASE_DIR = Path(__file__).resolve().parent
+
+app.mount(
+    "/static",
+    StaticFiles(directory=BASE_DIR / "static"),
+    name="static"
+)
 
 # Temporary in-memory storage for demonstration.
 # Runs will be lost when the server restarts.
@@ -27,15 +40,12 @@ class ApprovalRequest(BaseModel):
     approved: bool
 
 
+from fastapi.responses import FileResponse
+
+
 @app.get("/")
 def home():
-    return {
-        "success": True,
-        "message": "Welcome to CampusOps AI",
-        "status": "running",
-        "documentation": "/docs",
-    }
-
+    return FileResponse(BASE_DIR / "static" / "index.html")
 
 @app.get("/api/health")
 def health():
