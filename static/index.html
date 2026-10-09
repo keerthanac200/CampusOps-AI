@@ -1,32 +1,31 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#101522" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101522">
   <title>CampusOps AI | Operations Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
 </head>
 <body>
   <aside class="sidebar">
-    <a class="brand" href="#">
+    <a class="brand" href="#overview">
       <span class="brand-icon">C</span>
-      <span>CampusOps<span class="brand-ai"> AI</span>
+      <span>CampusOps <span class="brand-ai">AI</span>
         <small>EVENT OPERATIONS</small>
       </span>
     </a>
-
     <p class="nav-label">WORKSPACE</p>
     <a class="nav-item active" href="#overview">▦ &nbsp; Overview</a>
     <a class="nav-item" href="#planner">✳ &nbsp; AI Planner</a>
     <a class="nav-item" href="#tasks">☷ &nbsp; Task Board</a>
+    <a class="nav-item" href="#venues">▣ &nbsp; Venue Booking</a>
     <a class="nav-item" href="#activity">◷ &nbsp; Activity Log</a>
-
     <div class="sidebar-bottom">
-      <div class="status-dot"></div>
-      <div><strong>Local AI workspace</strong><small id="connection-label">Checking backend…</small></div>
+      <span class="status-dot"></span>
+      <div><strong>CampusOps workspace</strong><small id="connection-label">Frontend demo mode</small></div>
     </div>
   </aside>
 
@@ -37,123 +36,94 @@
         <h1>Event command center</h1>
         <p class="muted">Plan smarter. Coordinate better. Keep every step visible.</p>
       </div>
-      <span class="pill"><span class="live-dot"></span> AI AGENT</span>
+      <span class="pill">● DEMO WORKSPACE</span>
     </header>
 
-    <section class="stats-grid" aria-label="Workflow summary">
-      <article class="stat-card">
-        <span class="stat-icon purple">✳</span>
-        <p class="muted">Workflow</p>
-        <h2 id="workflow-status">Not started</h2>
-        <small>Current run status</small>
-      </article>
-      <article class="stat-card">
-        <span class="stat-icon blue">☷</span>
-        <p class="muted">Total tasks</p>
-        <h2 id="task-count">0</h2>
-        <small>Tasks in current plan</small>
-      </article>
-      <article class="stat-card">
-        <span class="stat-icon green">✓</span>
-        <p class="muted">Completed</p>
-        <h2 id="completed-count">0</h2>
-        <small>Verified completed tasks</small>
-      </article>
-      <article class="stat-card">
-        <span class="stat-icon amber">⚑</span>
-        <p class="muted">Needs attention</p>
-        <h2 id="attention-count">0</h2>
-        <small>Blocked or failed tasks</small>
-      </article>
-    </section>
+```
+<section class="stats-grid">
+  <article class="stat-card"><span class="stat-icon purple">✳</span><p class="muted">Workflow</p><h2 id="workflow-status">Not started</h2><small>Current run status</small></article>
+  <article class="stat-card"><span class="stat-icon blue">☷</span><p class="muted">Total tasks</p><h2 id="task-count">0</h2><small>Tasks in current plan</small></article>
+  <article class="stat-card"><span class="stat-icon green">✓</span><p class="muted">Completed</p><h2 id="completed-count">0</h2><small>Verified completed tasks</small></article>
+  <article class="stat-card"><span class="stat-icon amber">⚑</span><p class="muted">Needs attention</p><h2 id="attention-count">0</h2><small>Blocked or failed tasks</small></article>
+</section>
 
-    <section class="panel planner-panel" id="planner">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">01 / PLAN</p>
-          <h2>What are we organising?</h2>
-          <p class="muted">Describe the event. The AI planner will turn it into actionable steps.</p>
-        </div>
-        <span class="tag">NATURAL LANGUAGE</span>
-      </div>
+<section class="panel" id="planner">
+  <div class="section-heading">
+    <div><p class="eyebrow">01 / PLAN</p><h2>What are we organising?</h2><p class="muted">Describe your event and create a sample checklist.</p></div>
+    <span class="tag">DEMO PLANNER</span>
+  </div>
+  <form id="plan-form">
+    <label for="event-request">Your event request</label>
+    <textarea id="event-request" rows="3" required placeholder="Example: Plan a coding workshop for 40 students next Friday."></textarea>
+    <div class="form-footer"><span class="muted">Demo checklist only; AI backend is not connected.</span><button class="button primary" type="submit" id="plan-button">✳ Generate plan</button></div>
+  </form>
+  <p id="form-message" class="message" role="status"></p>
+</section>
 
-      <form id="plan-form">
-        <label for="event-request">Your event request</label>
-        <textarea id="event-request" rows="4" required
-          placeholder="Example: Plan an outdoor coding workshop for 60 students next Saturday. Check the weather, create a preparation checklist, and identify dependencies."></textarea>
-        <div class="form-footer">
-          <span class="muted">Review the plan before authorising execution.</span>
-          <button class="button primary" type="submit" id="plan-button">✳ Generate plan</button>
-        </div>
-      </form>
-      <p id="form-message" class="message" role="status" aria-live="polite"></p>
-    </section>
+<section class="content-grid">
+  <section class="panel" id="tasks">
+    <div class="section-heading compact"><div><p class="eyebrow">02 / EXECUTION</p><h2>Workflow tasks</h2></div><span class="tag" id="task-tag">0 TASKS</span></div>
+    <div id="task-list" class="task-list"><div class="empty-state"><strong>Your plan will appear here</strong><p>Submit an event request to create a sample checklist.</p></div></div>
+    <div id="approval-area" class="approval-area" hidden><div><strong>Demo checklist ready</strong><p class="muted">Tick tasks as you complete them.</p></div><button class="button secondary" id="reset-plan" type="button">Reset checklist</button></div>
+  </section>
+  <aside class="panel side-panel">
+    <p class="eyebrow">WORKSPACE CONTEXT</p><h2>System status</h2>
+    <div class="weather-card"><span class="weather-symbol">◉</span><div><strong>Frontend demo</strong><p class="muted">Live weather and AI services are not connected.</p></div></div>
+    <div class="divider"></div>
+    <p class="eyebrow">WORKFLOW SAFETY</p><h3>Execution controls</h3>
+    <ul class="safety-list"><li>✓ Plan before execution</li><li>✓ Review tasks manually</li><li>✓ Show demo data honestly</li></ul>
+    <p class="muted tiny">Real bookings and backend actions require server-side validation.</p>
+  </aside>
+</section>
 
-    <section class="content-grid">
-      <section class="panel" id="tasks">
-        <div class="section-heading compact">
-          <div>
-            <p class="eyebrow">02 / EXECUTION</p>
-            <h2>Workflow tasks</h2>
-          </div>
-          <span class="tag" id="task-tag">0 TASKS</span>
-        </div>
+<section class="panel venue-panel" id="venues">
+  <div class="section-heading">
+    <div><p class="eyebrow">03 / CAMPUS FACILITIES</p><h2>Smart Venue Booking</h2><p class="muted">Explore venues and submit a sample booking request.</p></div>
+    <span class="tag">DEMO DATA</span>
+  </div>
+  <div class="demo-notice"><strong>Demo mode:</strong> These are sample venues. Availability is not live, and requests are not confirmed reservations.</div>
 
-        <div id="task-list" class="task-list">
-          <div class="empty-state">
-            <span>✳</span>
-            <strong>Your plan will appear here</strong>
-            <p>Submit an event request to generate your task list.</p>
-          </div>
-        </div>
+  <div class="venue-cards">
+    <article class="venue-card"><div class="venue-card-icon">🏛️</div><h3>Seminar Hall A</h3><p class="muted">Capacity: 100 people</p><span class="venue-type">Seminar · DEMO</span></article>
+    <article class="venue-card"><div class="venue-card-icon">💻</div><h3>Computer Lab 1</h3><p class="muted">Capacity: 40 people</p><span class="venue-type">Workshop · DEMO</span></article>
+    <article class="venue-card"><div class="venue-card-icon">🌳</div><h3>Central Lawn</h3><p class="muted">Capacity: 150 people</p><span class="venue-type">Outdoor · DEMO</span></article>
+  </div>
 
-        <div id="approval-area" class="approval-area" hidden>
-          <div>
-            <strong>Ready to run this plan?</strong>
-            <p class="muted">Review the steps first. Only approve actions you understand.</p>
-          </div>
-          <button class="button primary" id="approve-button" type="button">Approve &amp; execute</button>
-        </div>
-      </section>
+  <div class="divider"></div>
+  <h3>Request a venue</h3>
+  <form id="venue-booking-form">
+    <label for="venue-select">Choose a venue</label>
+    <select id="venue-select" name="venue" required>
+      <option value="">Select a venue</option>
+      <option value="Seminar Hall A">Seminar Hall A</option>
+      <option value="Computer Lab 1">Computer Lab 1</option>
+      <option value="Central Lawn">Central Lawn</option>
+    </select>
+    <div class="booking-fields">
+      <div><label for="venue-date">Event date</label><input id="venue-date" name="date" type="date" required></div>
+      <div><label for="venue-attendees">Expected attendees</label><input id="venue-attendees" name="attendees" type="number" min="1" required placeholder="e.g. 35"></div>
+      <div><label for="venue-start">Start time</label><input id="venue-start" name="start" type="time" required></div>
+      <div><label for="venue-end">End time</label><input id="venue-end" name="end" type="time" required></div>
+    </div>
+    <label for="venue-purpose">Event name / purpose</label>
+    <input id="venue-purpose" name="purpose" type="text" maxlength="120" required placeholder="e.g. Student coding workshop">
+    <label for="venue-requester">Requested by</label>
+    <input id="venue-requester" name="requester" type="text" maxlength="100" required placeholder="Your name or team">
+    <div class="form-footer"><span class="muted">Saved in this browser only.</span><button class="button primary" type="submit">Submit demo request</button></div>
+  </form>
+  <p id="venue-message" class="message" role="status" aria-live="polite"></p>
+  <div class="divider"></div>
+  <div class="section-heading compact"><div><h3>Booking requests</h3><p class="muted">Requests stored in this browser demo.</p></div><span class="tag" id="booking-count">0 REQUESTS</span></div>
+  <div id="booking-list" class="booking-list"><div class="empty-state"><strong>No demo requests yet</strong><p>Your submitted requests will appear here.</p></div></div>
+</section>
 
-      <aside class="panel side-panel">
-        <p class="eyebrow">LIVE CONTEXT</p>
-        <h2>Weather snapshot</h2>
-        <div class="weather-card">
-          <span class="weather-symbol">☁</span>
-          <div>
-            <strong id="weather-summary">Not checked yet</strong>
-            <p id="weather-detail" class="muted">Weather details will appear if returned by the agent.</p>
-          </div>
-        </div>
+<section class="panel activity-panel" id="activity">
+  <div class="section-heading compact"><div><p class="eyebrow">04 / OBSERVABILITY</p><h2>Activity log</h2></div><button class="button secondary small" id="clear-log" type="button">Clear view</button></div>
+  <div id="activity-log" class="activity-log" aria-live="polite"></div>
+</section>
+<footer>CampusOps AI · Open-source operations agent prototype</footer>
+```
 
-        <div class="divider"></div>
-
-        <p class="eyebrow">WORKFLOW SAFETY</p>
-        <h3>Execution controls</h3>
-        <ul class="safety-list">
-          <li><span class="check">✓</span> Plan before execution</li>
-          <li><span class="check">✓</span> Review before approval</li>
-          <li><span class="check">✓</span> Surface errors honestly</li>
-        </ul>
-        <p class="muted tiny">The backend must enforce approvals and validate tool calls. These UI controls alone are not a security boundary.</p>
-      </aside>
-    </section>
-
-    <section class="panel activity-panel" id="activity">
-      <div class="section-heading compact">
-        <div>
-          <p class="eyebrow">03 / OBSERVABILITY</p>
-          <h2>Activity log</h2>
-        </div>
-        <button class="button secondary small" id="clear-log" type="button">Clear view</button>
-      </div>
-      <div id="activity-log" class="activity-log" aria-live="polite">
-        <p class="log-entry"><span class="log-dot"></span><span><strong>Dashboard opened</strong><small>Waiting for your first event request.</small></span><time>NOW</time></p>
-      </div>
-    </section>
-
-    <footer>CampusOps AI · Open-source operations agent prototype</footer>
   </main>
 </body>
 </html>
